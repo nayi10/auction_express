@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "188732586819",
+    "project_id": "auction-express",
+    "storage_bucket": "auction-express.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:188732586819:android:6c0a915a38149e9e05cdf6",
+        "android_client_info": {
+          "package_name": "bandughana.auctionexpress.auction_express"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "188732586819-c0ssicca1ljd89fpnfmv3m661ania0ms.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "bandughana.auctionexpress.auction_express",
+            "certificate_hash": "b1c11a75dd2eef2ca193bbb43d4a356b7be8e111"
+          }
+        },
+        {
+          "client_id": "188732586819-9rn3nfse05pjqe8g2ju5tgpakti5onoc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEWY_zNNshQRIn3PC2zv7SEsn4wf7Afp4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "188732586819-9rn3nfse05pjqe8g2ju5tgpakti5onoc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
