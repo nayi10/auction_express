@@ -1,25 +1,22 @@
-import 'package:auction_express/model/Bid.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Product {
   String? id;
   String category;
-  String dateAdded;
   String name;
   double price;
-  int quantity;
+  Timestamp? dateAdded = Timestamp.now();
+  int? quantity = 0;
   List<String>? images;
-  List<Bid>? bids;
 
   Product(
       {this.id,
       required this.name,
       required this.category,
-      required this.dateAdded,
+      this.dateAdded,
       required this.price,
-      required this.quantity,
-      required this.images,
-      this.bids});
+      this.quantity,
+      required this.images});
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
@@ -31,9 +28,6 @@ class Product {
       quantity: json['quantity'],
       images: json['images'] != null
           ? (json['images'] as List).map<String>((i) => i).toList()
-          : null,
-      bids: json['bids'] != null
-          ? (json['bids'] as List).map<Bid>((i) => Bid.fromJson(i)).toList()
           : null,
     );
   }
@@ -54,7 +48,6 @@ class Product {
     data['price'] = this.price;
     data['quantity'] = this.quantity;
     data['images'] = this.images;
-    data['bids'] = this.bids?.map((e) => e.toJson()).toList();
     return data;
   }
 }

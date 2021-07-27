@@ -9,16 +9,39 @@ class ProductGridCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return Card(
       child: Column(
         children: [
-          Image.network(product.images!.first),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text("GHS${product.price.toString()}"),
-              TextButton(onPressed: () => onBidPressed(), child: Text('Bid'))
-            ],
+          Container(
+            constraints: BoxConstraints(minHeight: 150),
+            child: Image.network(product.images!.first, loadingBuilder:
+                (BuildContext context, Widget child,
+                    ImageChunkEvent? loadingProgress) {
+              if (loadingProgress == null) {
+                return child;
+              }
+              return Center(
+                  child: CircularProgressIndicator(
+                value: loadingProgress.expectedTotalBytes != null
+                    ? loadingProgress.cumulativeBytesLoaded /
+                        loadingProgress.expectedTotalBytes!
+                    : null,
+              ));
+            }),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
+            child: Text(product.name),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text('₵${product.price}'),
+                TextButton(onPressed: () => onBidPressed(), child: Text('Bid')),
+              ],
+            ),
           )
         ],
       ),

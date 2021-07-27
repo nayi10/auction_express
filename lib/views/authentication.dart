@@ -180,29 +180,6 @@ class _AuthenticationState extends State<Authentication> {
     }
   }
 
-  createUserInFirebase(User user) async {
-    final QuerySnapshot result = await FirebaseFirestore.instance
-        .collection('users')
-        .where('id', isEqualTo: user.uid)
-        .get();
-
-    if (result.docs.length == 0) {
-      String name;
-      if (user.displayName != null) {
-        name = user.displayName!;
-      } else {
-        name = _nameController.text;
-      }
-
-      FirebaseFirestore.instance.collection('users').doc(user.uid).set({
-        'name': name,
-        'email': user.email,
-        'avatar': user.photoURL ?? "https://i.pravatar.cc/300",
-        'id': user.uid
-      });
-    }
-  }
-
   void register(String email, String password) async {
     final pref = await SharedPreferences.getInstance();
     setState(() {
@@ -211,6 +188,7 @@ class _AuthenticationState extends State<Authentication> {
     try {
       final cred = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
+      await cred.user!.updateDisplayName(_nameController.text);
       createUserInFirebase(cred.user!);
       pref.setString('username', _nameController.text);
       setState(() {
@@ -246,8 +224,9 @@ class _AuthenticationState extends State<Authentication> {
       _isProgress = true;
     });
     try {
-      await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
+      final cred = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
+      createUserInFirebase(cred.user!);
       setState(() {
         _isProgress = false;
       });
@@ -273,6 +252,31 @@ class _AuthenticationState extends State<Authentication> {
       setState(() {
         _isProgress = false;
         _error = 'An unknown error occurred. Try later';
+      });
+    }
+  }
+
+  createUserInFirebase(User user) async {
+    final QuerySnapshot result = await FirebaseFirestore.instance
+        .collection('users')
+        .where('id', isEqualTo: user.uid)
+        .get();
+
+    if (result.docs.length == 0) {
+      String name;
+      if (user.displayName != null) {
+        name = user.displayName!;
+      } else if (_nameController.text.trim().isNotEmpty) {
+        name = _nameController.text;
+      } else {
+        name = "New User";
+      }
+
+      FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+        'name': name,
+        'email': user.email,
+        'avatar': user.photoURL ?? "https://i.pravatar.cc/300",
+        'id': user.uid
       });
     }
   }

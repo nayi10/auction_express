@@ -13,8 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Auction XP',
-      theme:
-          ThemeData(primaryColor: Colors.blueGrey, primarySwatch: Colors.pink),
+      theme: ThemeData.dark(),
       home: FutureBuilder(
         future: Firebase.initializeApp(),
         builder: (BuildContext context, AsyncSnapshot<FirebaseApp> snapshot) {

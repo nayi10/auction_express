@@ -21,7 +21,7 @@ class CustomSnackBar {
         bgColor = Colors.teal;
     }
 
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    ScaffoldMessenger.maybeOf(context)!.showSnackBar(SnackBar(
       content: Text(
         text,
         style: TextStyle(color: color),

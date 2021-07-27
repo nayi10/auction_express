@@ -1,4 +1,5 @@
 import 'package:auction_express/model/Product.dart';
+import 'package:auction_express/views/product_list_card.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -44,15 +45,18 @@ class ProductsSearchDelegate extends SearchDelegate<Product> {
             products.retainWhere((element) =>
                 element.name.contains(this.query) ||
                 element.category.contains(this.query));
+            if (products.length == 0) {
+              return Center(
+                child: Text('No data'),
+              );
+            }
             return ListView.builder(
                 itemCount: products.length,
                 itemBuilder: (context, index) {
                   final product = products[index];
-                  return ListTile(
-                    leading: Image.network(product.images!.first),
-                    title: Text(product.name),
-                    subtitle: Text(product.category),
-                    onTap: () async {
+                  return ProductListCard(
+                    product: product,
+                    onButtonPressed: () async {
                       final pref = await SharedPreferences.getInstance();
                       final suggestions =
                           pref.getStringList('product_searches') ?? [];
