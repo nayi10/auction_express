@@ -15,10 +15,10 @@ class Bid {
       {required this.biddingPrice,
       required this.product,
       required this.user,
-      this.isAccepted,
-      this.status,
-      this.isPaid,
-      this.timestamp,
+      this.isAccepted = false,
+      this.status = 'pending',
+      this.isPaid = false,
+      this.timestamp = Timestamp.now(),
       this.expiry});
 
   factory Bid.fromJson(Map<String, dynamic> json) {

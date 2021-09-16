@@ -226,7 +226,6 @@ class _AuthenticationState extends State<Authentication> {
     try {
       final cred = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
-      createUserInFirebase(cred.user!);
       setState(() {
         _isProgress = false;
       });

@@ -13,7 +13,7 @@ class ProductGridCard extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            constraints: BoxConstraints(minHeight: 150),
+            constraints: BoxConstraints(maxHeight: 170),
             child: Image.network(product.images!.first, loadingBuilder:
                 (BuildContext context, Widget child,
                     ImageChunkEvent? loadingProgress) {
@@ -30,7 +30,7 @@ class ProductGridCard extends StatelessWidget {
             }),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
+            padding: const EdgeInsets.only(top: 8.0, bottom: 4.0, left:8.0),
             child: Text(product.name),
           ),
           Padding(
