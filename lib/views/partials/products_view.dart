@@ -26,11 +26,15 @@ class ProductsView extends StatelessWidget {
     final pref = await SharedPreferences.getInstance();
 
     if (bidded.size == 0) {
-      final bid = Bid(biddingPrice: price, product: product, user: {
-        'id': user.uid,
-        'name': user.displayName ?? pref.getString('username')!,
-        'email': user.email!
-      });
+      final bid = Bid(
+          biddingPrice: price,
+          product: product,
+          timestamp: Timestamp.now(),
+          user: {
+            'id': user.uid,
+            'name': user.displayName ?? pref.getString('username')!,
+            'email': user.email!
+          });
       FirebaseFirestore.instance
           .collection('bids')
           .add(bid.toJson())

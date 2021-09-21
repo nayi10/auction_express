@@ -41,8 +41,8 @@ class InActiveBids extends StatelessWidget {
                           leading: Image.network(bid.product.images!.first),
                           title: Text(bid.product.name),
                           subtitle: Text('Bidded on ' +
-                              DateFormat.yMMMEd()
-                                  .format(bid.timestamp!.toDate())),
+                              DateFormat.yMMMEd().format(
+                                  bid.timestamp?.toDate() ?? DateTime.now())),
                           isThreeLine: true,
                           trailing: TextButton.icon(
                             onPressed: null,
@@ -51,7 +51,7 @@ class InActiveBids extends StatelessWidget {
                                 : bid.status == 'accepted'
                                     ? Icons.done_rounded
                                     : Icons.cancel_rounded),
-                            label: Text(bid.status!.toUpperCase()),
+                            label: Text(bid.status?.toUpperCase() ?? 'Pending'),
                           ));
                     }),
               );

@@ -43,11 +43,11 @@ class ActiveBids extends StatelessWidget {
                         subtitle: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8.0),
                           child: Text('Placed on ' +
-                              DateFormat.yMMMMd()
-                                  .format(bid.timestamp!.toDate())),
+                              DateFormat.yMMMMd().format(
+                                  bid.timestamp?.toDate() ?? DateTime.now())),
                         ),
                         isThreeLine: true,
-                        trailing: bid.status!.contains('accepted')
+                        trailing: bid.status?.contains('accepted') ?? false
                             ? ElevatedButton(
                                 onPressed: () => print('Paying...'),
                                 child: Text('Pay'))
